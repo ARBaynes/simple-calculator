@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+// Handle a request and create a response;
+// Create and handle forms;
+// Bind parameters;
+// Get and set session objects;
+// Redirects.
 
 class CalculatorController extends AbstractController
 {
@@ -13,9 +18,7 @@ class CalculatorController extends AbstractController
      */
     public function index()
     {
-        return new Response(
-            '<html></html>'
-        );
+
     }
 
     /**
@@ -23,9 +26,7 @@ class CalculatorController extends AbstractController
      */
     public function plus()
     {
-        return new Response(
-            '<html></html>'
-        );
+
     }
 
     /**
@@ -33,9 +34,7 @@ class CalculatorController extends AbstractController
      */
     public function minus()
     {
-        return new Response(
-            '<html></html>'
-        );
+
     }
 
     /**
@@ -43,9 +42,7 @@ class CalculatorController extends AbstractController
      */
     public function multiply()
     {
-        return new Response(
-            '<html></html>'
-        );
+
     }
 
     /**
@@ -53,9 +50,7 @@ class CalculatorController extends AbstractController
      */
     public function divide()
     {
-        return new Response(
-            '<html></html>'
-        );
+
     }
 
 }
