@@ -7,7 +7,7 @@ use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,14 +24,14 @@ class CalculatorController extends AbstractController
     public function index(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('operand_1', TextType::class)
+            ->add('operand_1', IntegerType::class)
             ->add('operator', ChoiceType::class, ['choices'  => [
                 '+' => '+',
                 '-' => '-',
                 '*' => '*',
                 '/' => '/']
             ])
-            ->add('operand_2', TextType::class)
+            ->add('operand_2', IntegerType::class)
             ->add('submit', SubmitType::class, ['label' => 'Calculate'])
             ->getForm();
 
@@ -45,7 +45,7 @@ class CalculatorController extends AbstractController
             $result = Calculate::compute($operand_1, $operand_2, $operator);
 
             $this->addFlash(
-                'notice',
+                'info',
                 $operand_1 . ' ' . $operator . ' ' . $operand_2 . ' = ' . $result
             );
 

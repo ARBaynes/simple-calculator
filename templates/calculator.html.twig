@@ -3,13 +3,13 @@
 {% block body %}
     <h1>Calculator</h1>
 
-    {% for message in app.flashes('notice') %}
-        <div id="result" class="flash-notice">
-            <strong>{{ message }}</strong>
-        </div>
-    {% endfor %}
-
     <div id="calculator">
         {{ form(form) }}
     </div>
+
+    {% for message in app.flashes('info') %}
+        <div id="result" class="flash-info">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
 {% endblock %}
