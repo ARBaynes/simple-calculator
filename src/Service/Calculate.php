@@ -4,26 +4,23 @@ namespace App\Service;
 
 class Calculate
 {
-
-    public function plus($operator_1, $operator_2)
+    /**
+     * @param double $operand_1
+     * @param double $operand_2
+     * @param string $operator
+     * @return double
+     */
+    public static function compute($operand_1, $operand_2, $operator)
     {
-        return $operator_1 + $operator_2;
-    }
-
-    public function minus($operator_1, $operator_2)
-    {
-        return $operator_1 - $operator_2;
-    }
-
-
-    public function multiply($operator_1, $operator_2)
-    {
-        return $operator_1 * $operator_2;
-    }
-
-
-    public function divide($operator_1, $operator_2)
-    {
-        return $operator_1 / $operator_2;
+        switch ($operator) {
+            case '+':
+                return $operand_1 + $operand_2;
+            case '-':
+                return $operand_1 - $operand_2;
+            case '/':
+                return $operand_1 / $operand_2;
+            case '*':
+                return $operand_1 * $operand_2;
+        }
     }
 }

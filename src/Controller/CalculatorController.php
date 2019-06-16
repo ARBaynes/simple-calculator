@@ -2,64 +2,59 @@
 
 namespace App\Controller;
 
+use App\Service\Calculate;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-// Handle a request and create a response;
-// Create and handle forms;
-// Bind parameters;
-// Get and set session objects;
-// Redirects.
 
 class CalculatorController extends AbstractController
 {
     /**
-     * @Route("/calculator")
+     * @Route("/calculator", name="calculator_index")
+     * @param Request $request
+     * @return Response
+     * @throws Exception
      */
-    public function index()
+    public function index(Request $request)
     {
+        $form = $this->createFormBuilder()
+            ->add('operand_1', TextType::class)
+            ->add('operator', ChoiceType::class, ['choices'  => [
+                '+' => '+',
+                '-' => '-',
+                '*' => '*',
+                '/' => '/']
+            ])
+            ->add('operand_2', TextType::class)
+            ->add('submit', SubmitType::class, ['label' => 'Calculate'])
+            ->getForm();
 
-    }
+        $form->handleRequest($request);
 
-    /**
-     * @Route("/calculator/plus")
-     */
-    public function plus()
-    {
+        if ($form->isSubmitted() && $form->isValid()) {
+            $operand_1 = $form->get('operand_1')->getData();
+            $operand_2 = $form->get('operand_2')->getData();
+            $operator = $form->get('operator')->getData();
 
-    }
+            $result = Calculate::compute($operand_1, $operand_2, $operator);
 
-    /**
-     * @Route("/calculator/minus")
-     */
-    public function minus()
-    {
+            $this->addFlash(
+                'notice',
+                $operand_1 . ' ' . $operator . ' ' . $operand_2 . ' = ' . $result
+            );
 
-    }
+            return $this->redirectToRoute('calculator_index');
+        }
 
-    /**
-     * @Route("/calculator/multiply")
-     */
-    public function multiply()
-    {
-
-    }
-
-    /**
-     * @Route("/calculator/divide")
-     */
-    public function divide()
-    {
-
+        return $this->render('calculator.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
 }
-
-// create a simple calculator that can handle the following calculation types: plus,
-// minus, multiplication, division.
-
-// Your code should at least include a route to access the calculator page (e.g.
-// /calculator), a controller to render the template and a very basic template for the form.
-
-// Being a back-end position, we are not looking for a pretty web page with lots of
-// Javascript and CSS - a basic layout that works and uses best practises will gain more points.

@@ -1,0 +1,15 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <h1>Calculator</h1>
+
+    {% for message in app.flashes('notice') %}
+        <div id="result" class="flash-notice">
+            <strong>{{ message }}</strong>
+        </div>
+    {% endfor %}
+
+    <div id="calculator">
+        {{ form(form) }}
+    </div>
+{% endblock %}
